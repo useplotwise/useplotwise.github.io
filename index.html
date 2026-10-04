@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Freelancer Tax Set-Aside Calculator 2026 | Plotwise</title>
+<meta name="description" content="Free 2026 calculator for freelancers and 1099 workers: what percentage of each payment to set aside for taxes, and your quarterly estimated payment.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* One column: inputs card, then the result with a stacked breakdown bar, then the offer */
+:root{--bg:#0B1F3A;--card:#132B4D;--ink:#EEF3FA;--mute:#9FB0C8;--line:#22385A;--lime:#C6FF3D;--on-lime:#0B1F3A;--se:#7FA8E0;--fed:#C6FF3D;--st:#F0B86E;
+--display:'Archivo','Helvetica Neue',Arial,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.5;padding:0 16px;padding-block:28px 56px}
+.wrap{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.mark{display:inline-flex;align-items:center;gap:8px;font-weight:900;font-size:22px;color:var(--lime);text-decoration:none}
+.mark i{display:inline-flex;align-items:flex-end;gap:3px;height:18px}.mark i b{width:5px;background:currentColor;border-radius:2px}
+h1{font-weight:900;font-size:clamp(30px,6.5vw,46px);line-height:1.03;letter-spacing:-1.2px;text-wrap:balance}
+h1 span{color:var(--lime)}
+.lede{color:var(--mute);max-width:58ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px}
+label{display:block;font-size:13px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+input,select{width:100%;font:700 20px var(--display);color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:10px;padding:10px 12px}
+input:focus,select:focus{outline:none;border-color:var(--lime)}
+.hint{font-size:13px;color:var(--mute);margin-top:6px}
+.result{display:flex;flex-direction:column;gap:16px}
+.big{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.big b{font-size:clamp(64px,16vw,104px);font-weight:900;letter-spacing:-4px;line-height:.9;color:var(--lime);font-variant-numeric:tabular-nums}
+.big span{font-size:18px;color:var(--mute);max-width:24ch}
+.bar{display:flex;height:16px;border-radius:999px;overflow:hidden;background:var(--line)}
+.bar i{display:block;height:100%}
+.rows{display:grid;gap:8px}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:16px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.row span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:12px}
+.tile{border:1px solid var(--line);border-radius:12px;padding:14px}
+.tile small{display:block;font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--mute)}
+.tile b{font-size:28px;font-weight:900;font-variant-numeric:tabular-nums}
+.offer{background:var(--lime);color:var(--on-lime);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.offer h2{font-size:24px;font-weight:900;letter-spacing:-.4px}
+.btn{display:inline-block;background:var(--on-lime);color:var(--lime);font-weight:900;text-decoration:none;padding:12px 18px;border-radius:10px;align-self:flex-start}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.free{color:var(--ink)}.free a{color:var(--lime);font-weight:800}
+.fine{font-size:12.5px;color:var(--mute)}
+</style></head><body>
+<div class="wrap">
+  <a class="mark" href="https://plotwise.gumroad.com/l/freelancer-tax-system?utm_source=calculator&utm_content=logo"><i><b style="height:7px"></b><b style="height:12px"></b><b style="height:18px"></b></i>plotwise</a>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <h1>How much should you <span>set aside</span> for taxes?</h1>
+    <p class="lede">Free 2026 calculator for freelancers and 1099 workers. Enter your expected profit and it shows the percentage to save from every payment.</p>
+  </header>
+
+  <section class="card" aria-label="Your numbers">
+    <div class="grid">
+      <div><label for="profit">Expected 2026 profit ($)</label><input id="profit" type="number" inputmode="decimal" min="0" step="500" value="42000"><div class="hint">Income minus business expenses</div></div>
+      <div><label for="status">Filing status</label><select id="status"><option value="0">Single</option><option value="1">Married filing jointly</option><option value="2">Head of household</option></select></div>
+      <div><label for="state">State income tax rate (%)</label><input id="state" type="number" inputmode="decimal" min="0" max="15" step="0.1" value="0"><div class="hint">0 if your state has none</div></div>
+    </div>
+  </section>
+
+  <section class="card result" aria-live="polite">
+    <div class="big"><b id="rate">0%</b><span>of every payment to set aside for taxes</span></div>
+    <div class="bar" aria-hidden="true"><i id="b-se" style="background:var(--se)"></i><i id="b-fed" style="background:var(--fed)"></i><i id="b-st" style="background:var(--st)"></i></div>
+    <div class="rows">
+      <div class="row"><span><i class="dot" style="background:var(--se)"></i>Self-employment tax</span><span id="v-se"></span></div>
+      <div class="row"><span><i class="dot" style="background:var(--fed)"></i>Federal income tax</span><span id="v-fed"></span></div>
+      <div class="row"><span><i class="dot" style="background:var(--st)"></i>State income tax</span><span id="v-st"></span></div>
+      <div class="row" style="font-weight:800"><span>Total for 2026</span><span id="v-tot"></span></div>
+    </div>
+    <div class="tiles">
+      <div class="tile"><small>Each quarterly payment</small><b id="q"></b></div>
+      <div class="tile"><small>From a $1,000 payment, save</small><b id="per"></b></div>
+    </div>
+  </section>
+
+  <section class="offer">
+    <h2>Your income isn't the same every month. Your set-aside shouldn't be a guess.</h2>
+    <p>The Plotwise Freelancer Tax System updates this number every time you log a payment, suggests each of the four IRS payments, and tracks your 1099 clients. Excel + Google Sheets.</p>
+    <a class="btn" href="https://plotwise.gumroad.com/l/freelancer-tax-system?utm_source=calculator">Get the full system →</a>
+  </section>
+
+  <p class="free">Not ready? Get the <a href="https://plotwise.gumroad.com/l/cheatsheet?utm_source=calculator">free 2026 Freelancer Tax Cheat Sheet</a>: the four due dates, the 1099 rules and the formula on one page.</p>
+
+  <p class="fine">Estimate only, for education. Not tax, legal or financial advice. Uses 2026 IRS figures: tax brackets and standard deductions (Rev. Proc. 2025-32), 15.3% self-employment tax on 92.35% of profit with the $184,500 Social Security wage base, the 0.9% Additional Medicare Tax, and half of self-employment tax deducted. It assumes no W-2 wages, credits, qualified business income deduction or other income, and applies your state rate to profit, so your real tax may be lower or higher. Check with a tax professional.</p>
+</div>
+<script>
+const BR=[[0,0,0],[12400,24800,17700],[50400,100800,67450],[105700,211400,105700],[201775,403550,201750],[256225,512450,256200],[640600,768700,640600]];
+const RATES=[.10,.12,.22,.24,.32,.35,.37], STD=[16100,32200,24150], AMT=[200000,250000,200000], WAGE_BASE=184500;
+function fedTax(taxable,s){let t=0;for(let i=0;i<RATES.length;i++){const lo=BR[i][s],hi=i+1<BR.length?BR[i+1][s]:Infinity;if(taxable>lo)t+=(Math.min(taxable,hi)-lo)*RATES[i];}return t;}
+function calc(profit,s,stRate){
+  profit=Math.max(0,profit||0);
+  const base=profit*0.9235;
+  let ss=0,med=0,add=0;
+  if(base>=400){ss=Math.min(base,WAGE_BASE)*0.124;med=base*0.029;add=Math.max(0,base-AMT[s])*0.009;}
+  const se=ss+med+add, agi=profit-(ss+med)/2, taxable=Math.max(0,agi-STD[s]);
+  const fed=fedTax(taxable,s), st=profit*Math.max(0,stRate||0)/100, tot=se+fed+st;
+  return {se,fed,st,tot,rate:profit?tot/profit:0};
+}
+const $=id=>document.getElementById(id), usd=v=>'$'+Math.round(v).toLocaleString('en-US');
+function render(){
+  const r=calc(+$('profit').value,+$('status').value,+$('state').value);
+  $('rate').textContent=Math.round(r.rate*100)+'%';
+  $('v-se').textContent=usd(r.se);$('v-fed').textContent=usd(r.fed);$('v-st').textContent=usd(r.st);$('v-tot').textContent=usd(r.tot);
+  $('q').textContent=usd(r.tot/4);$('per').textContent=usd(r.rate*1000);
+  const t=r.tot||1;$('b-se').style.width=(r.se/t*100)+'%';$('b-fed').style.width=(r.fed/t*100)+'%';$('b-st').style.width=(r.st/t*100)+'%';
+}
+['profit','status','state'].forEach(id=>$(id).addEventListener('input',render));render();
+if(typeof module!=='undefined')module.exports={calc};
+</script>
+</body></html>
